@@ -1,5 +1,5 @@
 const { ApolloServer, gql } = require("apollo-server-express");
-const { createWriteStream } = require("fs");
+const { createWriteStream, existsSync, mkdirSync } = require("fs");
 const path = require("path");
 const express = require("express");
 
@@ -35,6 +35,8 @@ const resolvers = {
     }
   }
 };
+
+existsSync(path.join(__dirname, "../images")) || mkdirSync(path.join(__dirname, "../images"));
 
 const server = new ApolloServer({ typeDefs, resolvers });
 const app = express();
